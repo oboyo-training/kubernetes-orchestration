@@ -92,6 +92,13 @@ kubectl get nodes -o wide
 
 Les trois nœuds doivent être `Ready`.
 
+La configuration épingle l’image `kindest/node:v1.37.0`, pour que tout le monde
+travaille sur la même version de Kubernetes. C’est ce qu’attendent
+`metrics-server` 0.9, qui demande Kubernetes 1.34 ou plus récent, et NGINX
+Gateway Fabric 2.7.2, qui demande 1.32 ou plus récent. Si la création du
+cluster échoue en indiquant que l’image est inconnue, votre binaire `kind` est
+trop ancien : mettez-le à jour.
+
 ## Organisation du dépôt
 
 ```text
