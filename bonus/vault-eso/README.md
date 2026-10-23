@@ -39,6 +39,7 @@ Ajoutez le dépôt Helm HashiCorp et installez Vault :
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
 helm install vault hashicorp/vault \
+  --version 0.34.1 \
   --namespace vault --create-namespace \
   --set "server.dev.enabled=true" \
   --wait --timeout 5m
@@ -126,8 +127,14 @@ Créez un Secret dans le namespace où ESO sera configuré :
 
 ```bash
 kubectl -n kube-training create secret generic vault-token \
-  --from-literal=token="$VAULT_TOKEN"
+  --from-literal=token="$VAULT_TOKEN" \
+  --dry-run=client -o yaml | kubectl apply -f -
 unset VAULT_TOKEN
+```
+
+Cette forme reprend la même construction qu’au TP03 : elle fabrique le
+manifeste puis l’applique, ce qui crée le Secret ou le met à jour. Vous pouvez
+donc relancer la commande après une tentative interrompue.
 ```
 
 Le token reste une donnée sensible même dans un lab. Ne l’affichez pas et ne le commitez pas.
