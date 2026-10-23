@@ -89,10 +89,14 @@ helm list -n nginx-gateway
 kubectl -n nginx-gateway get pods,svc
 kubectl get gatewayclass
 kubectl -n nginx-gateway get deployments
-kubectl -n nginx-gateway logs deployment/$(kubectl -n nginx-gateway get deployments -o jsonpath='{.items[0].metadata.name}')
 ```
 
-La dernière commande récupère automatiquement le nom du Deployment et affiche ses logs.
+La dernière commande affiche le nom du Deployment du contrôleur. Reprenez-le
+dans la commande suivante, à la place de `<nom-du-deployment>` :
+
+```bash
+kubectl -n nginx-gateway logs deployment/<nom-du-deployment> --tail=50
+```
 
 Le NodePort 30080 est configuré pour montrer ce que serait le point d’entrée du trafic sur un vrai cluster, mais les TP ne passent pas par lui : l’accès HTTP se fait en port-forward, ce qui évite de dépendre d’un port fixe de votre poste. S’il n’apparait pas, vous pouvez poursuivre.
 
