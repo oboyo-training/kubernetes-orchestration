@@ -166,7 +166,7 @@ kubectl top pods -A --sort-by=cpu
 ```
 
 Si ces commandes répondent `error: Metrics API not available`, ne concluez pas
- tout de suite que `metrics-server` est absent. Vérifiez dans cet ordre :
+tout de suite que `metrics-server` est absent. Vérifiez dans cet ordre :
 
 ```bash
 kubectl get apiservice v1beta1.metrics.k8s.io
