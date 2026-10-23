@@ -35,7 +35,7 @@ def home():
       <dt>Environnement</dt><dd>{app_env}</dd>
       <dt>Clé API configurée</dt><dd>{"oui" if api_key_configured else "non"}</dd>
     </dl>
-    <p>Endpoints de vérification : <code>/health</code> et <code>/ready</code>.</p>
+    <p>Routes de vérification : <code>/health</code> et <code>/ready</code>.</p>
   </main>
 </body>
 </html>"""
