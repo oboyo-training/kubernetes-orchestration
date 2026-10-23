@@ -89,11 +89,13 @@ et plus riche, les EndpointSlice :
 kubectl get endpointslices -n tp02
 ```
 
-`Endpoints` est l’API d’origine ; c’est elle que nous lisons dans ces TP parce
-que sa sortie tient sur une ligne. `EndpointSlice` est celle que Kubernetes
-utilise réellement aujourd’hui et que vous rencontrerez en production : elle
-découpe les adresses en tranches et porte des informations que l’objet
-`Endpoints` ne sait pas représenter.
+Les deux coexistent et décrivent les mêmes adresses. `Endpoints` est l’API
+d’origine : elle est dépréciée depuis Kubernetes 1.33 mais reste pleinement
+prise en charge et ne sera pas supprimée ; nous la lisons dans ces TP parce que
+sa sortie tient sur une ligne. `EndpointSlice`, stable depuis Kubernetes 1.21,
+est celle que le cluster alimente en premier et que vous rencontrerez en
+production : elle découpe les adresses en tranches et porte des informations
+que l’objet `Endpoints` ne sait pas représenter.
 
 ## 6. Accéder au Service depuis votre poste
 
