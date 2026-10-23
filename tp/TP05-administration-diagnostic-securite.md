@@ -165,8 +165,22 @@ kubectl top nodes
 kubectl top pods -A --sort-by=cpu
 ```
 
-Si ces commandes répondent `error: Metrics API not available`, `metrics-server`
-n’est pas installé : reprenez la partie C du TP04.
+Si ces commandes répondent `error: Metrics API not available`, ne concluez pas
+ tout de suite que `metrics-server` est absent. Vérifiez dans cet ordre :
+
+```bash
+kubectl get apiservice v1beta1.metrics.k8s.io
+kubectl -n kube-system get pods -l k8s-app=metrics-server
+kubectl -n kube-system logs -l k8s-app=metrics-server --tail=20
+```
+
+- Si l’APIService n’existe pas, `metrics-server` n’est pas installé : reprenez la partie C du TP04.
+- S’il existe mais affiche `AVAILABLE=False`, le déploiement n’est pas encore prêt, ou il n’a pas réussi à interroger les kubelets. Les logs le disent.
+- S’il vient d’être installé, laissez passer une minute : la fenêtre de mesure doit se remplir.
+
+Notez aussi ce que `metrics-server` n’est pas : il sert la consommation du
+moment à `kubectl top` et à l’autoscaling. Il ne conserve aucun historique et
+ne déclenche aucune alerte.
 
 Les alertes sont la seule des quatre notions que nous n’installons pas. Elles
 supposent un système qui conserve les métriques dans le temps et qui évalue des
